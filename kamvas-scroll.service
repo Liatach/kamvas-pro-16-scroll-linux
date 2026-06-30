@@ -1,0 +1,56 @@
+# kamvas-scroll.service
+# =====================
+# Systemd USER service that runs kamvas-scroll.py automatically on login,
+# alongside OpenTabletDriver.
+#
+# Installation
+# ------------
+# 1. Complete the udev and group setup in the README first (no sudo needed
+#    after that one-time setup).
+#
+# 2. Copy the script to your local bin and make it executable:
+#        mkdir -p ~/.local/bin
+#        cp kamvas-scroll.py ~/.local/bin/kamvas-scroll.py
+#        chmod +x ~/.local/bin/kamvas-scroll.py
+#
+# 3. Copy this file to your systemd user config directory:
+#        mkdir -p ~/.config/systemd/user
+#        cp kamvas-scroll.service ~/.config/systemd/user/
+#
+# 4. Reload systemd and enable the service:
+#        systemctl --user daemon-reload
+#        systemctl --user enable --now kamvas-scroll
+#
+# Useful commands
+# ---------------
+#   Check status:    systemctl --user status kamvas-scroll
+#   Live logs:       journalctl --user -u kamvas-scroll -f
+#   Stop:            systemctl --user stop kamvas-scroll
+#   Disable:         systemctl --user disable kamvas-scroll
+
+[Unit]
+Description=Huion Kamvas Pro 16 scroll strip to mouse wheel mapper
+Documentation=https://github.com/YOUR_USERNAME/kamvas-pro-16-scroll-linux
+
+# Wait for OTD to start first, since OTD initialises the tablet hardware.
+# The ExecStartPre delay below gives OTD time to finish before we start reading.
+After=opentabletdriver.service
+Wants=opentabletdriver.service
+
+[Service]
+Type=simple
+
+# Adjust this path if you put kamvas-scroll.py somewhere else.
+ExecStart=%h/.local/bin/kamvas-scroll.py
+
+# Wait 2 seconds after OTD starts before reading hidraw,
+# to ensure the tablet is fully initialised.
+ExecStartPre=/bin/sleep 2
+
+# Restart automatically if the script exits unexpectedly
+# (e.g. tablet unplugged and replugged).
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=default.target
