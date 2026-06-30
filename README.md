@@ -177,5 +177,5 @@ OTD's device configuration for the Kamvas Pro 16 covers the pen and express keys
 
 ## Credits
 
-Figured out by **Kim Lang** with assistance from Claude (Anthropic), July 2026.  
+Figured out by **Liatach** with assistance from Claude (Anthropic), July 2026.  
 Shared freely — if this helped, pay it forward on the [OTD GitHub Discussions](https://github.com/OpenTabletDriver/OpenTabletDriver/discussions) or [r/huion](https://www.reddit.com/r/huion/).
