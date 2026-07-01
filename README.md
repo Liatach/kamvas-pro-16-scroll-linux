@@ -168,6 +168,11 @@ while True:
 ```
 
 ---
+## Troubleshooting
+Express keys triggering the monitor OSD menu instead of bindings
+The Kamvas Pro 16 has two hardware modes for the six side buttons: express key mode (HID reports sent to OTD) and OSD menu mode (controls monitor brightness, contrast, input source etc). A long press on the bottom express key toggles between them. If your buttons are bringing up the Kamvas onscreen menu rather than triggering your OTD bindings, a long press on button 6 (bottom key) should switch them back to express key mode. This is easy to trigger accidentally when testing buttons during setup.
+
+
 
 ## Why doesn't OTD handle this?
 
